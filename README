@@ -13,6 +13,10 @@ Testsystem: MBP, OSX 10.6.2, Texlive2009
 kleine Anpassungen für Mac OS Lion durch Sebastian Herzberg
 getestet mit MacTex2011, OSX 10.7.2
 
+30.08.2012
+- Anpassung an Pfade mit Leerzeichen
+- Vorlagenname aktualisiert
+
 Installation erfolgt in das Tex-Haupt-Verzeichnis 
 da bei lokaler Installation die Schriften nicht gefunden werden
 
@@ -20,4 +24,4 @@ Installiert werden beide Schriften sowie die Vorlagen.
 Dazu müssen folgende Dateien im selben Ordner wie dieses Skript liegen:
 DIN_Bd_PS.zip 
 Univers_ps.zip
-vorlagen_20110504.zip (ist im Moment aktuell)
+Vorlagen_20120725.zip (ist im Moment aktuell)
