@@ -17,6 +17,10 @@
 # kleine Anpassungen für Mac OS Lion durch Sebastian Herzberg (Student TU Dresden)
 # getestet mit MacTex2011, OSX 10.7.2
 #
+# 30.08.2012
+# - Anpassung an Pfade mit Leerzeichen
+# - Vorlagenname aktualisiert
+#
 # Installation erfolgt in das Tex-Haupt-Verzeichnis 
 # da bei lokaler Installation die Schriften nicht gefunden werden
 # 
@@ -24,7 +28,7 @@
 # Dazu müssen volgenede Dateien im selben Ordner wie dieses Script liegen:
 # DIN_Bd_PS.zip 
 # Univers_ps.zip
-# vorlagen_20110504.zip (ist im Moment aktuell)
+# Vorlagen_20120725.zip (ist im Moment aktuell)
 
 
 # setzen des Installationsverzeichnisses und bekanntmachen
@@ -42,7 +46,7 @@ workdir=`pwd`
 
 # extract vorlagen to installdir
 mkdir -p $INSTDIR/tex/latex/tud/
-unzip vorlagen_20110504.zip -d $INSTDIR/tex/latex/tud/
+unzip Vorlagen_20120725.zip -d $INSTDIR/tex/latex/tud/
 
 # make tmp-dir for univers and dinbold
 mkdir converted_univers
@@ -53,29 +57,29 @@ unzip Univers_ps.zip
 cd Univers_ps
 # copy files
 echo uvceb aunb8a
-mv uvceb___.pfb $workdir/converted_univers/aunb8a.pfb
-mv uvceb___.afm $workdir/converted_univers/aunb8a.afm
+mv uvceb___.pfb "$workdir/converted_univers/aunb8a.pfb"
+mv uvceb___.afm "$workdir/converted_univers/aunb8a.afm"
 echo uvcel aunl8a
-mv uvcel___.pfb $workdir/converted_univers/aunl8a.pfb
-mv uvcel___.afm $workdir/converted_univers/aunl8a.afm
+mv uvcel___.pfb "$workdir/converted_univers/aunl8a.pfb"
+mv uvcel___.afm "$workdir/converted_univers/aunl8a.afm"
 echo uvceo aunro8a
-mv uvceo___.pfb $workdir/converted_univers/aunro8a.pfb
-mv uvceo___.afm $workdir/converted_univers/aunro8a.afm
+mv uvceo___.pfb "$workdir/converted_univers/aunro8a.pfb"
+mv uvceo___.afm "$workdir/converted_univers/aunro8a.afm"
 echo uvxbo aunbo8a
-mv uvxbo___.pfb $workdir/converted_univers/aunbo8a.pfb
-mv uvxbo___.afm $workdir/converted_univers/aunbo8a.afm
+mv uvxbo___.pfb "$workdir/converted_univers/aunbo8a.pfb"
+mv uvxbo___.afm "$workdir/converted_univers/aunbo8a.afm"
 echo uvxlo aunlo8a
-mv uvxlo___.pfb $workdir/converted_univers/aunlo8a.pfb
-mv uvxlo___.afm $workdir/converted_univers/aunlo8a.afm
+mv uvxlo___.pfb "$workdir/converted_univers/aunlo8a.pfb"
+mv uvxlo___.afm "$workdir/converted_univers/aunlo8a.afm"
 echo uvce aunr8a
-mv uvce____.pfb $workdir/converted_univers/aunr8a.pfb
-mv uvce____.afm $workdir/converted_univers/aunr8a.afm
+mv uvce____.pfb "$workdir/converted_univers/aunr8a.pfb"
+mv uvce____.afm "$workdir/converted_univers/aunr8a.afm"
 echo uvczo aubro8a
-mv uvczo___.pfb $workdir/converted_univers/aubro8a.pfb
-mv uvczo___.afm $workdir/converted_univers/aubro8a.afm
+mv uvczo___.pfb "$workdir/converted_univers/aubro8a.pfb"
+mv uvczo___.afm "$workdir/converted_univers/aubro8a.afm"
 echo uvcz aubr8a
-mv uvcz____.pfb $workdir/converted_univers/aubr8a.pfb
-mv uvcz____.afm $workdir/converted_univers/aubr8a.afm
+mv uvcz____.pfb "$workdir/converted_univers/aubr8a.pfb"
+mv uvcz____.afm "$workdir/converted_univers/aubr8a.afm"
 #remove other files
 rm -f *.inf
 rm -f *.pfm
@@ -85,8 +89,8 @@ cd ..
 unzip DIN_Bd_PS.zip
 cd DIN_Bd_PS
 # copy files
-mv DINBd___.pfb $workdir/converted_dinbold/dinb8a.pfb
-mv DINBd___.afm $workdir/converted_dinbold/dinb8a.afm
+mv DINBd___.pfb "$workdir/converted_dinbold/dinb8a.pfb"
+mv DINBd___.afm "$workdir/converted_dinbold/dinb8a.afm"
 #remove other files
 rm -f *.PFM
 rm -f *.afm
