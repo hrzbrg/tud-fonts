@@ -39,6 +39,7 @@
 
 # setzen des Installationsverzeichnisses und bekanntmachen
 # dieses Pfades im TexLive-System
+export TEMPTEXMF='texmf-local'
 export INSTDIR='/usr/local/texlive/texmf-local'
 
 # Wenn Verzeichniss nicht vorhanden -> anlegen
@@ -124,29 +125,32 @@ aubro8r UniversCE-BlackOblique "TeXBase1Encoding ReEncodeFont" <8r.enc <aubro8a.
 aubr8r UniversCE-Black "TeXBase1Encoding ReEncodeFont" <8r.enc <aubr8a.pfb
 %EOF
 
-mkdir -p $INSTDIR/tex/latex/univers
-mkdir -p $INSTDIR/fonts/tfm/adobe/univers
-mkdir -p $INSTDIR/fonts/vf/adobe/univers
-mkdir -p $INSTDIR/fonts/type1/adobe/univers
-mkdir -p $INSTDIR/fonts/afm/adobe/univers
-
-cp -v *.fd  $INSTDIR/tex/latex/univers/
-cp -v *.tfm $INSTDIR/fonts/tfm/adobe/univers/
-cp -v *.vf  $INSTDIR/fonts/vf/adobe/univers/
-cp -v *.pfb $INSTDIR/fonts/type1/adobe/univers/
-cp -v *.afm $INSTDIR/fonts/afm/adobe/univers
-
-mkdir -p $INSTDIR/fonts/map 
-cp univers.map $INSTDIR/fonts/map/
-
-zip -r ../univers_converted.zip *
 cd ..
+mkdir -p "$TEMPTEXMF/tex/latex/univers"
+mkdir -p "$TEMPTEXMF/fonts/tfm/adobe/univers"
+mkdir -p "$TEMPTEXMF/fonts/vf/adobe/univers"
+mkdir -p "$TEMPTEXMF/fonts/type1/adobe/univers"
+mkdir -p "$TEMPTEXMF/fonts/afm/adobe/univers"
+mkdir -p "$TEMPTEXMF/fonts/map"
+
+cp -v univers_converted/*.fd  "$TEMPTEXMF/tex/latex/univers/"
+cp -v univers_converted/*.tfm "$TEMPTEXMF/fonts/tfm/adobe/univers/"
+cp -v univers_converted/*.vf  "$TEMPTEXMF/fonts/vf/adobe/univers/"
+cp -v univers_converted/*.pfb "$TEMPTEXMF/fonts/type1/adobe/univers/"
+cp -v univers_converted/*.afm "$TEMPTEXMF/fonts/afm/adobe/univers"
+cp -v univers_converted/univers.map "$TEMPTEXMF/fonts/map/"
+
 rm -rf univers_converted
+
+cd "$TEMPTEXMF"
+zip -r ../univers_texmf.zip *
+cd ..
+rm -rf "$TEMPTEXMF"
 
 # make tmp-dir
 mkdir dinbold_converted
 
-#unzip dinbold
+# unzip dinbold
 unzip DIN_Bd_PS.zip
 cd DIN_Bd_PS
 
@@ -180,26 +184,31 @@ cat > dinbold.map <<%EOF
 dinb8r DIN-Bold "TeXBase1Encoding ReEncodeFont" <8r.enc <dinb8a.pfb
 %EOF
 
-mkdir -p $INSTDIR/tex/latex/dinbold
-mkdir -p $INSTDIR/fonts/tfm/adobe/dinbold
-mkdir -p $INSTDIR/fonts/vf/adobe/dinbold
-mkdir -p $INSTDIR/fonts/type1/adobe/dinbold
-mkdir -p $INSTDIR/fonts/afm/adobe/dinbold
-
-cp -v *.fd $INSTDIR/tex/latex/dinbold/
-cp -v *.tfm $INSTDIR/fonts/tfm/adobe/dinbold/
-cp -v *.vf $INSTDIR/fonts/vf/adobe/dinbold/
-cp -v *.pfb $INSTDIR/fonts/type1/adobe/dinbold/
-cp -v *.afm $INSTDIR/fonts/afm/adobe/dinbold/
-
-mkdir -pv $INSTDIR/fonts/map
-cp -v dinbold.map $INSTDIR/fonts/map/
-
-zip -r ../dinbold_converted.zip *
 cd ..
+mkdir -p "$TEMPTEXMF/tex/latex/dinbold"
+mkdir -p "$TEMPTEXMF/fonts/tfm/adobe/dinbold"
+mkdir -p "$TEMPTEXMF/fonts/vf/adobe/dinbold"
+mkdir -p "$TEMPTEXMF/fonts/type1/adobe/dinbold"
+mkdir -p "$TEMPTEXMF/fonts/afm/adobe/dinbold"
+mkdir -p "$TEMPTEXMF/fonts/map"
+
+cp -v dinbold_converted/*.fd "$TEMPTEXMF/tex/latex/dinbold/"
+cp -v dinbold_converted/*.tfm "$TEMPTEXMF/fonts/tfm/adobe/dinbold/"
+cp -v dinbold_converted/*.vf "$TEMPTEXMF/fonts/vf/adobe/dinbold/"
+cp -v dinbold_converted/*.pfb "$TEMPTEXMF/fonts/type1/adobe/dinbold/"
+cp -v dinbold_converted/*.afm "$TEMPTEXMF/fonts/afm/adobe/dinbold/"
+cp -v dinbold_converted/dinbold.map "$TEMPTEXMF/fonts/map/"
+
 rm -rf dinbold_converted
 
-# psfonts.map aktualisieren
+cd "$TEMPTEXMF"
+zip -r ../dinbold_texmf.zip *
+cd ..
+rm -rf "$TEMPTEXMF"
+
+# fonts kopieren, psfonts.map aktualisieren
+unzip -u univers_texmf.zip -d $INSTDIR
+unzip -u dinbold_texmf.zip -d $INSTDIR
 mktexlsr
 
 updmap-sys --enable Map=univers.map
