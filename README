@@ -17,6 +17,12 @@ getestet mit MacTex2011, OSX 10.7.2
 - Anpassung an Pfade mit Leerzeichen
 - Vorlagenname aktualisiert
 
+31.08.2012
+- code cleanup
+- Zip-Dateien mit konvertierten Schriften generieren
+
+Aufruf: sudo ./fontinstaller.sh
+
 Installation erfolgt in das Tex-Haupt-Verzeichnis 
 da bei lokaler Installation die Schriften nicht gefunden werden
 

@@ -21,6 +21,12 @@
 # - Anpassung an Pfade mit Leerzeichen
 # - Vorlagenname aktualisiert
 #
+# 31.08.2012
+# - code cleanup
+# - Zip-Dateien mit konvertierten Schriften generieren
+#
+# Aufruf: sudo ./fontinstaller.sh
+#
 # Installation erfolgt in das Tex-Haupt-Verzeichnis 
 # da bei lokaler Installation die Schriften nicht gefunden werden
 # 
@@ -33,11 +39,11 @@
 
 # setzen des Installationsverzeichnisses und bekanntmachen
 # dieses Pfades im TexLive-System
-export INSTDIR=`kpsexpand '/usr/local/texlive/texmf-local'`
+export INSTDIR='/usr/local/texlive/texmf-local'
 
 # Wenn Verzeichniss nicht vorhanden -> anlegen
 if [ -d $INSTDIR ] ; then
-	echo "Ordner existiert bereits."  
+	echo 'Ordner existiert bereits.'
 	else   
 		mkdir -pv $INSTDIR 
 fi
@@ -48,59 +54,42 @@ workdir=`pwd`
 mkdir -p $INSTDIR/tex/latex/tud/
 unzip Vorlagen_20120725.zip -d $INSTDIR/tex/latex/tud/
 
-# make tmp-dir for univers and dinbold
-mkdir converted_univers
-mkdir converted_dinbold
-
+# make tmp-dir
+mkdir univers_converted
 #unzip univers
 unzip Univers_ps.zip
 cd Univers_ps
 # copy files
 echo uvceb aunb8a
-mv uvceb___.pfb "$workdir/converted_univers/aunb8a.pfb"
-mv uvceb___.afm "$workdir/converted_univers/aunb8a.afm"
+cp uvceb___.pfb "$workdir/univers_converted/aunb8a.pfb"
+cp uvceb___.afm "$workdir/univers_converted/aunb8a.afm"
 echo uvcel aunl8a
-mv uvcel___.pfb "$workdir/converted_univers/aunl8a.pfb"
-mv uvcel___.afm "$workdir/converted_univers/aunl8a.afm"
+cp uvcel___.pfb "$workdir/univers_converted/aunl8a.pfb"
+cp uvcel___.afm "$workdir/univers_converted/aunl8a.afm"
 echo uvceo aunro8a
-mv uvceo___.pfb "$workdir/converted_univers/aunro8a.pfb"
-mv uvceo___.afm "$workdir/converted_univers/aunro8a.afm"
+cp uvceo___.pfb "$workdir/univers_converted/aunro8a.pfb"
+cp uvceo___.afm "$workdir/univers_converted/aunro8a.afm"
 echo uvxbo aunbo8a
-mv uvxbo___.pfb "$workdir/converted_univers/aunbo8a.pfb"
-mv uvxbo___.afm "$workdir/converted_univers/aunbo8a.afm"
+cp uvxbo___.pfb "$workdir/univers_converted/aunbo8a.pfb"
+cp uvxbo___.afm "$workdir/univers_converted/aunbo8a.afm"
 echo uvxlo aunlo8a
-mv uvxlo___.pfb "$workdir/converted_univers/aunlo8a.pfb"
-mv uvxlo___.afm "$workdir/converted_univers/aunlo8a.afm"
+cp uvxlo___.pfb "$workdir/univers_converted/aunlo8a.pfb"
+cp uvxlo___.afm "$workdir/univers_converted/aunlo8a.afm"
 echo uvce aunr8a
-mv uvce____.pfb "$workdir/converted_univers/aunr8a.pfb"
-mv uvce____.afm "$workdir/converted_univers/aunr8a.afm"
+cp uvce____.pfb "$workdir/univers_converted/aunr8a.pfb"
+cp uvce____.afm "$workdir/univers_converted/aunr8a.afm"
 echo uvczo aubro8a
-mv uvczo___.pfb "$workdir/converted_univers/aubro8a.pfb"
-mv uvczo___.afm "$workdir/converted_univers/aubro8a.afm"
+cp uvczo___.pfb "$workdir/univers_converted/aubro8a.pfb"
+cp uvczo___.afm "$workdir/univers_converted/aubro8a.afm"
 echo uvcz aubr8a
-mv uvcz____.pfb "$workdir/converted_univers/aubr8a.pfb"
-mv uvcz____.afm "$workdir/converted_univers/aubr8a.afm"
-#remove other files
-rm -f *.inf
-rm -f *.pfm
-
-#unzip dinbold
-cd ..
-unzip DIN_Bd_PS.zip
-cd DIN_Bd_PS
-# copy files
-mv DINBd___.pfb "$workdir/converted_dinbold/dinb8a.pfb"
-mv DINBd___.afm "$workdir/converted_dinbold/dinb8a.afm"
-#remove other files
-rm -f *.PFM
-rm -f *.afm
-rm -f *.inf
-rm -f *.pfb
+cp uvcz____.pfb "$workdir/univers_converted/aubr8a.pfb"
+cp uvcz____.afm "$workdir/univers_converted/aubr8a.afm"
 
 cd ..
+rm -rf Univers_ps
 
 #build univers-fonts
-cd converted_univers
+cd univers_converted
 
 cat > fiaun.tex <<%EOF
 \\input fontinst.sty
@@ -141,21 +130,36 @@ mkdir -p $INSTDIR/fonts/vf/adobe/univers
 mkdir -p $INSTDIR/fonts/type1/adobe/univers
 mkdir -p $INSTDIR/fonts/afm/adobe/univers
 
-mv -v *.fd  $INSTDIR/tex/latex/univers/
-mv -v *.tfm $INSTDIR/fonts/tfm/adobe/univers/
-mv -v *.vf  $INSTDIR/fonts/vf/adobe/univers/
-mv -v *.pfb $INSTDIR/fonts/type1/adobe/univers/
-mv -v *.afm $INSTDIR/fonts/afm/adobe/univers
+cp -v *.fd  $INSTDIR/tex/latex/univers/
+cp -v *.tfm $INSTDIR/fonts/tfm/adobe/univers/
+cp -v *.vf  $INSTDIR/fonts/vf/adobe/univers/
+cp -v *.pfb $INSTDIR/fonts/type1/adobe/univers/
+cp -v *.afm $INSTDIR/fonts/afm/adobe/univers
 
 mkdir -p $INSTDIR/fonts/map 
-mv univers.map $INSTDIR/fonts/map/
+cp univers.map $INSTDIR/fonts/map/
 
-
-# buld dinbold fonts    
+zip -r ../univers_converted.zip *
 cd ..
-rm -rf converted_univers
-cd converted_dinbold
+rm -rf univers_converted
 
+# make tmp-dir
+mkdir dinbold_converted
+
+#unzip dinbold
+unzip DIN_Bd_PS.zip
+cd DIN_Bd_PS
+
+# copy files
+echo DINBd dinb8a
+cp DINBd___.pfb "$workdir/dinbold_converted/dinb8a.pfb"
+cp DINBd___.afm "$workdir/dinbold_converted/dinb8a.afm"
+
+cd ..
+rm -rf DIN_Bd_PS
+
+# build dinbold fonts    
+cd dinbold_converted
 
 cat > fidin.tex <<%EOF
 \\input fontinst.sty
@@ -182,20 +186,21 @@ mkdir -p $INSTDIR/fonts/vf/adobe/dinbold
 mkdir -p $INSTDIR/fonts/type1/adobe/dinbold
 mkdir -p $INSTDIR/fonts/afm/adobe/dinbold
 
-mv -v *.fd $INSTDIR/tex/latex/dinbold/
-mv -v *.tfm $INSTDIR/fonts/tfm/adobe/dinbold/
-mv -v *.vf $INSTDIR/fonts/vf/adobe/dinbold/
-mv -v *.pfb $INSTDIR/fonts/type1/adobe/dinbold/
-mv -v *.afm $INSTDIR/fonts/afm/adobe/dinbold/
+cp -v *.fd $INSTDIR/tex/latex/dinbold/
+cp -v *.tfm $INSTDIR/fonts/tfm/adobe/dinbold/
+cp -v *.vf $INSTDIR/fonts/vf/adobe/dinbold/
+cp -v *.pfb $INSTDIR/fonts/type1/adobe/dinbold/
+cp -v *.afm $INSTDIR/fonts/afm/adobe/dinbold/
 
 mkdir -pv $INSTDIR/fonts/map
-mv -v dinbold.map $INSTDIR/fonts/map/
-    
+cp -v dinbold.map $INSTDIR/fonts/map/
+
+zip -r ../dinbold_converted.zip *
 cd ..
-rm -rf converted_dinbold
+rm -rf dinbold_converted
 
 # psfonts.map aktualisieren
-sudo mktexlsr
+mktexlsr
 
 updmap-sys --enable Map=univers.map
 updmap-sys --enable Map=dinbold.map
