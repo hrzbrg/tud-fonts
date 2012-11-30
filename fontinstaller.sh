@@ -34,7 +34,7 @@
 # Dazu müssen volgenede Dateien im selben Ordner wie dieses Script liegen:
 # DIN_Bd_PS.zip 
 # Univers_ps.zip
-# Vorlagen_20120725.zip (ist im Moment aktuell)
+# Vorlagen_*.zip
 
 
 # setzen des Installationsverzeichnisses und bekanntmachen
@@ -53,7 +53,7 @@ workdir=`pwd`
 
 # extract vorlagen to installdir
 mkdir -p $INSTDIR/tex/latex/tud/
-unzip Vorlagen_20120725.zip -d $INSTDIR/tex/latex/tud/
+unzip Vorlagen_*.zip -d $INSTDIR/tex/latex/tud/
 
 # make tmp-dir
 mkdir univers_converted
