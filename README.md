@@ -15,6 +15,7 @@ Die Installation erfolgt in das Verzeichnis `/usr/local/texlive/texmf-local/tex/
 ### Getestete Plattformen
 *	Mac OS X Lion mit MacTeX 2011/2012
 *	Mac OS X Mountain Lion mit MacTeX 2012
+*	Mac OS X Yosemite mit MacTeX 2015
 
 ### Autoren
 *	M. Kluge
